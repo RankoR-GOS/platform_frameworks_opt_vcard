@@ -15,16 +15,12 @@
  */
 package com.android.vcard;
 
-import android.annotation.NonNull;
-import android.annotation.Nullable;
 import android.content.ContentResolver;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.util.Log;
-
-import com.android.internal.annotations.VisibleForTesting;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -41,9 +37,7 @@ public class PhotoUtils {
     /**
      * Returns a bitmap created from given photo URI. Returns null if any error happens.
      */
-    @Nullable
-    static Bitmap getBitmapFromAsset(@NonNull final ContentResolver cr,
-            @NonNull final Uri photoUri) {
+    static Bitmap getBitmapFromAsset(final ContentResolver cr, final Uri photoUri) {
         AssetFileDescriptor fd = null;
         try {
             fd = cr.openAssetFileDescriptor(photoUri, "r");
@@ -91,9 +85,7 @@ public class PhotoUtils {
      * Creates a resized bitmap if any of dimensions in given image exceeds the given limit.
      * If the given image is already smaller the limit, it just returns the given bitmap.
      */
-    @VisibleForTesting(visibility = VisibleForTesting.Visibility.PACKAGE)
-    @NonNull
-    public static Bitmap resizeBitmapIfNeeded(@NonNull Bitmap originalBitmap, int dimensionLimit) {
+    public static Bitmap resizeBitmapIfNeeded(Bitmap originalBitmap, int dimensionLimit) {
         Log.d(LOG_TAG, "resizeBitmapIfNeeded dimensionLimit=" + dimensionLimit);
         int width = originalBitmap.getWidth();
         int height = originalBitmap.getHeight();
@@ -122,8 +114,7 @@ public class PhotoUtils {
      * <p>
      * If the image could not be compressed under the size limit, this method returns null.
      */
-    @Nullable
-    static byte[] compressBitmap(@NonNull Bitmap bitmap, int fileSizeLimit) {
+    static byte[] compressBitmap(Bitmap bitmap, int fileSizeLimit) {
         Log.d(LOG_TAG, "compressBitmap fileSizeLimit: " + fileSizeLimit / KB_IN_BYTES + " KB");
 
         byte[] compressedData = null;
