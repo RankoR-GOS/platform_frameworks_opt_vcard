@@ -1,11 +1,9 @@
-apply plugin: 'java'
+apply plugin: 'com.android.library'
 
-sourceSets {
-    main {
+android {
+    namespace "com.android.vcard"
+    compileSdk 35
+    sourceSets.main {
         java.srcDirs = ['java']
     }
-}
-
-dependencies {
-    compile getAndroidPrebuilt('14')
 }
