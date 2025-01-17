@@ -3,6 +3,11 @@ apply plugin: 'com.android.library'
 android {
     namespace "com.android.vcard"
     compileSdk 35
+
+    defaultConfig {
+        minSdk 35
+    }
+
     sourceSets.main {
         java.srcDirs = ['java']
     }
