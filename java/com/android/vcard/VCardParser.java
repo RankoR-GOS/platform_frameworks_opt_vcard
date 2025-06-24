@@ -25,8 +25,6 @@ public abstract class VCardParser {
     /**
      * Registers one {@link VCardInterpreter} instance, which receives events along with
      * vCard parsing.
-     *
-     * @param interpreter
      */
     public abstract void addInterpreter(VCardInterpreter interpreter);
 
@@ -38,7 +36,6 @@ public abstract class VCardParser {
      * a vCard file with multiple entries, try {@link #parseOne(InputStream)}.</p>
      *
      * @param is The source to parse.
-     * @throws IOException, VCardException
      */
     public abstract void parse(InputStream is) throws IOException, VCardException;
 
@@ -69,7 +66,6 @@ public abstract class VCardParser {
      * calls. Callers should handle the situation by themselves.</p>
      *
      * @param is  The source to parse.
-     * @throws IOException, VCardException
      */
     public abstract void parseOne(InputStream is) throws IOException, VCardException;
 

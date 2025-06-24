@@ -605,7 +605,6 @@ public class VCardUtils {
             value = "";
         }
         final int asciiFirst = 0x20;
-        final int asciiLast = 0x7E;  // included
         final StringBuilder builder = new StringBuilder();
         final int length = value.length();
         boolean needQuote = false;

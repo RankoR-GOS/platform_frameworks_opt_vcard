@@ -42,8 +42,6 @@ import java.util.List;
  * </p>
  */
 public class VCardEntryConstructor implements VCardInterpreter {
-    private static String LOG_TAG = VCardConstants.LOG_TAG;
-
     /**
      * Represents current stack of VCardEntry. Used to support nested vCard (vCard 2.1).
      */

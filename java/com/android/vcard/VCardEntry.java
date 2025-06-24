@@ -1626,7 +1626,7 @@ public class VCardEntry {
         iterator.onIterationEnded();
     }
 
-    private void iterateOneList(List<? extends EntryElement> elemList,
+    private static void iterateOneList(List<? extends EntryElement> elemList,
             EntryElementIterator iterator) {
         if (elemList != null && elemList.size() > 0) {
             iterator.onElementGroupStarted(elemList.get(0).getEntryLabel());
@@ -1637,7 +1637,7 @@ public class VCardEntry {
         }
     }
 
-    private class IsIgnorableIterator implements EntryElementIterator {
+    private static class IsIgnorableIterator implements EntryElementIterator {
         private boolean mEmpty = true;
 
         @Override
@@ -1715,12 +1715,12 @@ public class VCardEntry {
         }
     }
 
-    private class InsertOperationConstrutor implements EntryElementIterator {
+    private static class InsertOperationConstructor implements EntryElementIterator {
         private final List<ContentProviderOperation> mOperationList;
 
         private final int mBackReferenceIndex;
 
-        public InsertOperationConstrutor(List<ContentProviderOperation> operationList,
+        public InsertOperationConstructor(List<ContentProviderOperation> operationList,
                 int backReferenceIndex) {
             mOperationList = operationList;
             mBackReferenceIndex = backReferenceIndex;
@@ -1920,7 +1920,7 @@ public class VCardEntry {
         default: { // More than 1.
             organizationName = orgList.get(0);
             // We're not sure which is the correct string for department.
-            // In order to keep all the data, concatinate the rest of elements.
+            // In order to keep all the data, concatenate the rest of elements.
             StringBuilder builder = new StringBuilder();
             for (int i = 1; i < size; i++) {
                 if (i > 1) {
@@ -2445,7 +2445,6 @@ public class VCardEntry {
 
     /**
      * @param propValue may contain "sip:" at the beginning.
-     * @param typeCollection
      */
     private void handleSipCase(String propValue, Collection<String> typeCollection) {
         if (TextUtils.isEmpty(propValue)) {
@@ -2560,7 +2559,7 @@ public class VCardEntry {
      *
      * @param resolver {@link ContentResolver} object to be used in this method.
      * @param operationList object to be filled. You can use this argument to
-     *            concatinate operation lists. If null, this method creates a
+     *            concatenate operation lists. If null, this method creates a
      *            new array object.
      * @return If operationList argument is null, new object with new insert
      *         operations. If it is not null, the operationList object with
@@ -2595,9 +2594,7 @@ public class VCardEntry {
         }
         operationList.add(builder.build());
 
-        int start = operationList.size();
-        iterateAllData(new InsertOperationConstrutor(operationList, backReferenceIndex));
-        int end = operationList.size();
+        iterateAllData(new InsertOperationConstructor(operationList, backReferenceIndex));
 
         return operationList;
     }
@@ -2610,7 +2607,7 @@ public class VCardEntry {
         return null;
     }
 
-    private String listToString(List<String> list) {
+    private static String listToString(List<String> list) {
         final int size = list.size();
         if (size > 1) {
             StringBuilder builder = new StringBuilder();
