@@ -176,7 +176,6 @@ import java.util.Set;
 
     /**
      * @return String. It may be null, or its length may be 0
-     * @throws IOException
      */
     protected String getLine() throws IOException {
         return mReader.readLine();
@@ -188,7 +187,6 @@ import java.util.Set;
 
     /**
      * @return String with it's length > 0
-     * @throws IOException
      * @throws VCardException when the stream reached end of line
      */
     protected String getNonEmptyLine() throws IOException, VCardException {
@@ -233,8 +231,6 @@ import java.util.Set;
 
     /**
      * @return True when successful. False when reaching the end of line
-     * @throws IOException
-     * @throws VCardException
      */
     protected boolean readBeginVCard(boolean allowGarbage) throws IOException, VCardException {
         // TODO: use consructPropertyLine().
@@ -433,6 +429,9 @@ import java.util.Set;
                     }
                     break;
                 }
+                default: {
+                     break; // Nothing to do
+                }
             }
         }
 
@@ -559,7 +558,7 @@ import java.util.Set;
         propertyData.addParameter(VCardConstants.PARAM_LANGUAGE, langval);
     }
 
-    private boolean isAsciiLetter(char ch) {
+    private static boolean isAsciiLetter(char ch) {
         if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z')) {
             return true;
         }
@@ -753,8 +752,6 @@ import java.util.Set;
      * @return whole Quoted-Printable string, including a given argument and
      *         following lines. Excludes the last empty line following to Quoted
      *         Printable lines.
-     * @throws IOException
-     * @throws VCardException
      */
     private String getQuotedPrintablePart(String firstString)
             throws IOException, VCardException {
@@ -808,7 +805,6 @@ import java.util.Set;
      *
      * @param firstString The first line of the property.
      * @return A new property, potentially built from multiple lines.
-     * @throws IOException
      */
     private String getPotentialMultiline(String firstString) throws IOException {
         final StringBuilder builder = new StringBuilder();
@@ -891,7 +887,7 @@ import java.util.Set;
      * @param line The vCard line.
      * @return The property name portion. {@literal null} if no property name found.
      */
-    private String getPropertyNameUpperCase(String line) {
+    private static String getPropertyNameUpperCase(String line) {
         final int colonIndex = line.indexOf(":");
         if (colonIndex > -1) {
             final int semiColonIndex = line.indexOf(";");
@@ -1012,7 +1008,6 @@ import java.util.Set;
         final InputStreamReader tmpReader = new InputStreamReader(is, mIntermediateCharset);
         mReader = new CustomBufferedReader(tmpReader);
 
-        final long start = System.currentTimeMillis();
         for (VCardInterpreter interpreter : mInterpreterList) {
             interpreter.onVCardStarted();
         }
@@ -1021,7 +1016,7 @@ import java.util.Set;
         while (true) {
             synchronized (this) {
                 if (mCanceled) {
-                    Log.i(LOG_TAG, "Cancel request has come. exitting parse operation.");
+                    Log.i(LOG_TAG, "Cancel request has come. exiting parse operation.");
                     break;
                 }
             }
@@ -1043,7 +1038,6 @@ import java.util.Set;
         final InputStreamReader tmpReader = new InputStreamReader(is, mIntermediateCharset);
         mReader = new CustomBufferedReader(tmpReader);
 
-        final long start = System.currentTimeMillis();
         for (VCardInterpreter interpreter : mInterpreterList) {
             interpreter.onVCardStarted();
         }

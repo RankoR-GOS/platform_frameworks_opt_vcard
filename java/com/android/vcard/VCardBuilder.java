@@ -127,7 +127,6 @@ public class VCardBuilder {
     }
 
     /**
-     * @param vcardType
      * @param charset If null, we use default charset for export.
      * @hide
      */
@@ -202,7 +201,7 @@ public class VCardBuilder {
         }
     }
 
-    private boolean containsNonEmptyName(final ContentValues contentValues) {
+    private static boolean containsNonEmptyName(final ContentValues contentValues) {
         final String familyName = contentValues.getAsString(StructuredName.FAMILY_NAME);
         final String middleName = contentValues.getAsString(StructuredName.MIDDLE_NAME);
         final String givenName = contentValues.getAsString(StructuredName.GIVEN_NAME);
@@ -222,7 +221,7 @@ public class VCardBuilder {
                 TextUtils.isEmpty(displayName));
     }
 
-    private ContentValues getPrimaryContentValueWithStructuredName(
+    private static ContentValues getPrimaryContentValueWithStructuredName(
             final List<ContentValues> contentValuesList) {
         ContentValues primaryContentValues = null;
         ContentValues subprimaryContentValues = null;
@@ -907,7 +906,7 @@ public class VCardBuilder {
      * Do not call this method when trimming is inappropriate for its receivers.
      * </p>
      */
-    private List<String> splitPhoneNumbers(final String phoneNumber) {
+    private static List<String> splitPhoneNumbers(final String phoneNumber) {
         final List<String> phoneList = new ArrayList<String>();
 
         StringBuilder builder = new StringBuilder();
@@ -1084,7 +1083,6 @@ public class VCardBuilder {
             final String encodedRegion;
             final String encodedPostalCode;
             final String encodedCountry;
-            final String encodedNeighborhood;
 
             final String rawLocality2;
             // This looks inefficient since we encode rawLocality and rawNeighborhood twice,
@@ -1123,7 +1121,6 @@ public class VCardBuilder {
                 encodedRegion = escapeCharacters(rawRegion);
                 encodedPostalCode = escapeCharacters(rawPostalCode);
                 encodedCountry = escapeCharacters(rawCountry);
-                encodedNeighborhood = escapeCharacters(rawNeighborhood);
             }
             final StringBuilder addressBuilder = new StringBuilder();
             addressBuilder.append(encodedPoBox);
@@ -1733,7 +1730,6 @@ public class VCardBuilder {
 
     /**
      * @param encodedValue Must be encoded by BASE64
-     * @param photoType
      */
     public void appendPhotoLine(final String encodedValue, final String photoType) {
         StringBuilder tmpBuilder = new StringBuilder();

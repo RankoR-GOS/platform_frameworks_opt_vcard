@@ -157,7 +157,7 @@ public class VCardConfig {
      * Again, we should not use this flag at all for complying vCard 2.1 spec.
      * </p>
      * <p>
-     * In vCard 3.0, Quoted-Printable is explicitly "prohibitted", so we don't need to care this
+     * In vCard 3.0, Quoted-Printable is explicitly "prohibited", so we don't need to care this
      * kind of problem (hopefully).
      * </p>
      * @hide
@@ -175,7 +175,7 @@ public class VCardConfig {
      * we need to emit Japanese phonetic names into vCard entries. The property values
      * should be encoded into half-width katakana when the target importer is Japanese mobile
      * phones', which are probably not able to parse full-width hiragana/katakana for
-     * historical reasons, while the vCard importers embedded to softwares for PC should be
+     * historical reasons, while the vCard importers embedded to software for PC should be
      * able to parse them as we expect.
      * </p>
      */
@@ -219,7 +219,7 @@ public class VCardConfig {
      * The vCard specifications mention nothing toward phone numbers, while some devices
      * do (wrongly, but with innevitable reasons).
      * For example, there's a possibility Japanese mobile phones are expected to have
-     * just numbers, hypens, plus, etc. but not usual alphabets, while US mobile phones
+     * just numbers, hyphens, plus, etc. but not usual alphabets, while US mobile phones
      * should get such characters. To make exported vCard simple for external parsers,
      * we have used {@link PhoneNumberUtils#formatNumber(String)} during export, and
      * removed unnecessary characters inside the number (e.g. "111-222-3333 (Miami)"
@@ -255,7 +255,7 @@ public class VCardConfig {
 
     /**
      * <P>
-     * The flag asking exporter to refrain addess export.
+     * The flag asking exporter to refrain address export.
      * </P>
      * @hide will be deleted in the near future.
      */
@@ -322,7 +322,7 @@ public class VCardConfig {
     /**
      * <p>
      * Generic vCard format with the vCard 2.1. When composing a vCard entry,
-     * the US convension will be used toward formatting some values.
+     * the US conversion will be used toward formatting some values.
      * </p>
      * <p>
      * e.g. The order of the display name would be "Prefix Given Middle Family Suffix",
@@ -335,7 +335,7 @@ public class VCardConfig {
      * </p>
      * <p>
      * If you want to use alternative charset, you should notify the charset to the other
-     * compontent to be used.
+     * component to be used.
      * </p>
      */
     public static final int VCARD_TYPE_V21_GENERIC =
@@ -367,7 +367,7 @@ public class VCardConfig {
 
     /**
      * <p>
-     * General vCard format for the vCard 2.1 with some Europe convension. Uses Utf-8.
+     * General vCard format for the vCard 2.1 with some Europe conversion. Uses Utf-8.
      * Currently, only name order is considered ("Prefix Middle Given Family Suffix")
      * </p>
      */
@@ -378,7 +378,7 @@ public class VCardConfig {
 
     /**
      * <p>
-     * General vCard format with the version 3.0 with some Europe convension. Uses UTF-8.
+     * General vCard format with the version 3.0 with some Europe conversion. Uses UTF-8.
      * </p>
      * <p>
      * Not ready yet. Use with caution when you use this.
@@ -523,7 +523,7 @@ public class VCardConfig {
     }
 
     /**
-     * @return true if the device is Japanese and some Japanese convension is
+     * @return true if the device is Japanese and some Japanese conversion is
      * applied to creating "formatted" something like FORMATTED_ADDRESS.
      */
     public static boolean isJapaneseDevice(final int vcardType) {

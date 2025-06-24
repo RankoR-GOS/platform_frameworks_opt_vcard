@@ -89,11 +89,12 @@ import java.util.Set;
         String line;
         StringBuilder builder = null;
         while ((line = mReader.readLine()) != null) {
-            // Skip empty lines in order to accomodate implementations that
+            // Skip empty lines in order to accommodate implementations that
             // send line termination variations such as \r\r\n.
             if (line.length() == 0) {
                 continue;
-            } else if (line.charAt(0) == ' ' || line.charAt(0) == '\t') {
+            }
+            if (line.charAt(0) == ' ' || line.charAt(0) == '\t') {
                 // RFC 2425 describes line continuation as \r\n followed by
                 // a single ' ' or '\t' whitespace character.
                 if (builder == null) {

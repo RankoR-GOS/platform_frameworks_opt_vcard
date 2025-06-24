@@ -676,6 +676,7 @@ public class VCardComposer {
         }
     }
 
+    @SuppressWarnings("Finalize")
     @Override
     protected void finalize() throws Throwable {
         try {
