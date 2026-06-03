@@ -24,8 +24,10 @@ import com.android.vcard.exception.VCardException;
 
 import android.test.AndroidTestCase;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -166,6 +168,67 @@ public class VCardParserTests extends AndroidTestCase {
         } finally {
             inputStream.close();
         }
+    }
+
+    public void testQuotedPrintableSoftBreakTransportPadding() throws IOException, VCardException {
+        VCardParser parser = new VCardParser_V21();
+        MockVCardInterpreter interpreter = new MockVCardInterpreter();
+        interpreter.addExpectedOrder(Order.START)
+                .addExpectedOrder(Order.START_ENTRY)
+                .addExpectedOrder(Order.PROPERTY_CREATED)  // For VERSION
+                .addExpectedOrder(Order.PROPERTY_CREATED)  // For NOTE
+                .addExpectedOrder(Order.END_ENTRY)
+                .addExpectedOrder(Order.END);
+        parser.addInterpreter(interpreter);
+        parser.parse(toInputStream("BEGIN:VCARD\r\n"
+                + "VERSION:2.1\r\n"
+                + "NOTE;ENCODING=QUOTED-PRINTABLE:hello= \r\n"
+                + "world\r\n"
+                + "END:VCARD\r\n"));
+        interpreter.verify();
+    }
+
+    public void testQuotedPrintableContinuationTransportPadding()
+            throws IOException, VCardException {
+        VCardParser parser = new VCardParser_V21();
+        MockVCardInterpreter interpreter = new MockVCardInterpreter();
+        interpreter.addExpectedOrder(Order.START)
+                .addExpectedOrder(Order.START_ENTRY)
+                .addExpectedOrder(Order.PROPERTY_CREATED)  // For VERSION
+                .addExpectedOrder(Order.PROPERTY_CREATED)  // For NOTE
+                .addExpectedOrder(Order.END_ENTRY)
+                .addExpectedOrder(Order.END);
+        parser.addInterpreter(interpreter);
+        parser.parse(toInputStream("BEGIN:VCARD\r\n"
+                + "VERSION:2.1\r\n"
+                + "NOTE;ENCODING=QUOTED-PRINTABLE:hello=\r\n"
+                + "world= \r\n"
+                + "again\r\n"
+                + "END:VCARD\r\n"));
+        interpreter.verify();
+    }
+
+    public void testQuotedPrintableSoftBreakTabTransportPadding()
+            throws IOException, VCardException {
+        VCardParser parser = new VCardParser_V21();
+        MockVCardInterpreter interpreter = new MockVCardInterpreter();
+        interpreter.addExpectedOrder(Order.START)
+                .addExpectedOrder(Order.START_ENTRY)
+                .addExpectedOrder(Order.PROPERTY_CREATED)  // For VERSION
+                .addExpectedOrder(Order.PROPERTY_CREATED)  // For NOTE
+                .addExpectedOrder(Order.END_ENTRY)
+                .addExpectedOrder(Order.END);
+        parser.addInterpreter(interpreter);
+        parser.parse(toInputStream("BEGIN:VCARD\r\n"
+                + "VERSION:2.1\r\n"
+                + "NOTE;ENCODING=QUOTED-PRINTABLE:hello=\t\r\n"
+                + "world\r\n"
+                + "END:VCARD\r\n"));
+        interpreter.verify();
+    }
+
+    private InputStream toInputStream(String vCard) {
+        return new ByteArrayInputStream(vCard.getBytes(StandardCharsets.UTF_8));
     }
 
     /**
