@@ -766,11 +766,8 @@ import java.util.Set;
         // to the aid of their country.
         if (firstString.trim().endsWith("=")) {
             // remove "transport-padding"
-            int pos = firstString.length() - 1;
-            while (firstString.charAt(pos) != '=') {
-            }
             StringBuilder builder = new StringBuilder();
-            builder.append(firstString.substring(0, pos + 1));
+            builder.append(firstString.substring(0, firstString.lastIndexOf('=') + 1));
             builder.append("\r\n");
             String line;
             while (true) {
@@ -780,10 +777,7 @@ import java.util.Set;
                 }
                 if (line.trim().endsWith("=")) {
                     // remove "transport-padding"
-                    pos = line.length() - 1;
-                    while (line.charAt(pos) != '=') {
-                    }
-                    builder.append(line.substring(0, pos + 1));
+                    builder.append(line.substring(0, line.lastIndexOf('=') + 1));
                     builder.append("\r\n");
                 } else {
                     builder.append(line);
